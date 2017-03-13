@@ -251,3 +251,23 @@ void terminate(){
     munmap(fbp, screensize);
     close(fbfd);
 }
+
+
+void ScaleLine(Point * p , double scalingFactorX , double scalingFactorY ){
+    double xtemp = (double) p[0].x * scalingFactorX;
+    double ytemp = (double) p[0].y * scalingFactorY;
+    double xtemp1 = (double) p[1].x * scalingFactorX;
+    double ytemp1 = (double) p[1].y * scalingFactorY;
+
+    p[0].x = round(xtemp);
+    p[0].y = round(ytemp);
+    p[1].x = round(xtemp1);
+    p[1].y = round(ytemp1);
+}
+
+void TranslationLine(Point *  p , int xTranslation, int yTranslation ) {
+    p[0].x += xTranslation;
+    p[0].y += yTranslation;
+    p[1].x += xTranslation;
+    p[1].y += yTranslation;
+}
