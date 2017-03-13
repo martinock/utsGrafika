@@ -3,8 +3,6 @@
 #include "grafika.h"
 #include "clipping.h"
 
-
-
 double left = 0;
 double up = 0;
 double scaleFactor = 1;
@@ -128,8 +126,84 @@ void programBarrier(){
 	while(1) {}
 }
 
+void showSplashScreen() {
+	//Initiate Splash Screen Component
+	Point * hurufI = malloc(5 * sizeof(Point));
+	Point * hurufT = malloc(9 * sizeof(Point));
+	Point * hurufB = malloc(7 * sizeof(Point));
+	Point * detailHurufB1 = malloc(5 * sizeof(Point));
+	Point * detailHurufB2 = malloc(5 * sizeof(Point));
+	
+	int baseX = 400;
+	int baseY = 300;
+	int isBounce = 0;
+	int iteration = 0;
+	while (1) {
+		hurufI[0].x = baseX + 25; hurufI[0].y = baseY;
+		hurufI[1].x = baseX + 50; hurufI[1].y = baseY;
+		hurufI[2].x = baseX + 50; hurufI[2].y = baseY + 100;
+		hurufI[3].x = baseX + 25; hurufI[3].y = baseY + 100;
+		hurufI[4].x = baseX + 25; hurufI[4].y = baseY;
+
+		hurufT[0].x = baseX + 70; hurufT[0].y = baseY;
+		hurufT[1].x = baseX + 145; hurufT[1].y = baseY;
+		hurufT[2].x = baseX + 145; hurufT[2].y = baseY + 20;
+		hurufT[3].x = baseX + 115; hurufT[3].y = baseY + 20;
+		hurufT[4].x = baseX + 115; hurufT[4].y = baseY + 100;
+		hurufT[5].x = baseX + 100; hurufT[5].y = baseY + 100;
+		hurufT[6].x = baseX + 100; hurufT[6].y = baseY + 20;
+		hurufT[7].x = baseX + 70; hurufT[7].y = baseY + 20;
+		hurufT[8].x = baseX + 70; hurufT[8].y = baseY;
+
+		hurufB[0].x = baseX + 165; hurufB[0].y = baseY;
+		hurufB[1].x = baseX + 215; hurufB[1].y = baseY;
+		hurufB[2].x = baseX + 215; hurufB[2].y = baseY + 50;
+		hurufB[3].x = baseX + 265; hurufB[3].y = baseY + 50;
+		hurufB[4].x = baseX + 265; hurufB[4].y = baseY + 100;
+		hurufB[5].x = baseX + 165; hurufB[5].y = baseY + 100;
+		hurufB[6].x = baseX + 165; hurufB[6].y = baseY;
+
+		detailHurufB1[0].x = baseX + 180; detailHurufB1[0].y = baseY + 20;
+		detailHurufB1[1].x = baseX + 180; detailHurufB1[1].y = baseY + 40;
+		detailHurufB1[2].x = baseX + 200; detailHurufB1[2].y = baseY + 40;
+		detailHurufB1[3].x = baseX + 200; detailHurufB1[3].y = baseY + 20;
+		detailHurufB1[4].x = baseX + 180; detailHurufB1[4].y = baseY + 20;
+
+		detailHurufB2[0].x = baseX + 180; detailHurufB2[0].y = baseY + 65;
+		detailHurufB2[1].x = baseX + 180; detailHurufB2[1].y = baseY + 85;
+		detailHurufB2[2].x = baseX + 250; detailHurufB2[2].y = baseY + 85;
+		detailHurufB2[3].x = baseX + 250; detailHurufB2[3].y = baseY + 65;
+		detailHurufB2[4].x = baseX + 180; detailHurufB2[4].y = baseY + 65;
+
+		if (hurufB[3].x >= displayWidth) {
+			isBounce = 1;
+			iteration++;
+		}
+		if (hurufI[0].x <= 0) {
+			isBounce = 0;
+			iteration++;
+		}
+		if (isBounce == 0) {
+			baseX += 100;
+		} else {
+			baseX -= 100;
+		}
+		drawPolyline(5, hurufI, setColor(255,255,255), 1);
+		drawPolyline(9, hurufT, setColor(255,255,255), 1);
+		drawPolyline(7, hurufB, setColor(255,255,255), 1);
+		drawPolyline(5, detailHurufB1, setColor(255,255,255), 1);
+		drawPolyline(5, detailHurufB2, setColor(255,255,255), 1);
+		printBackground(setColor(0,0,0));
+		if (iteration == 3) {
+			break;
+		}
+	}
+}
+
 int main() {
 	initScreen();
+	printBackground(setColor(0,0,0));
+	showSplashScreen();
 	printBackground(setColor(0,0,0));
 	refreshScreen();
 	pthread_create(&keypressListener, NULL, keypressListen, NULL);
