@@ -1,4 +1,5 @@
 #include "grafika.h"
+#include "framebuffer.h"
 
 /*Gambar explosion masih jelek*/
 Point explosionPoint[11] = {
@@ -32,9 +33,9 @@ void plotSlopPositiveLine (Point P1, Point P2, Color C, int W) {
 		// printf("Based on +X\n");
 		for (x=P1.x; x<=P2.x; x++) {
 			// printf("%d %d\n", x, j);
-			if (W<4) printSquare(W, x, j, C);
+			if (W<4) setXY(W, x, j, C);
 			else {
-				if (x%(W/2)==0) printSquare(W, x, j, C);
+				if (x%(W/2)==0) setXY(W, x, j, C);
 			}
 			if (p >= 0) {
 				p += 2* (dY - dX);
@@ -52,9 +53,9 @@ void plotSlopPositiveLine (Point P1, Point P2, Color C, int W) {
 		// printf("Based on +Y\n");
 		for (y=P1.y; y<=P2.y; y++) {
 			// printf("%d %d\n", i, y);
-			if (W<4) printSquare(W, i, y, C);
+			if (W<4) setXY(W, i, y, C);
 			else {
-				if (y%(W/2)==0) printSquare(W, i, y, C);
+				if (y%(W/2)==0) setXY(W, i, y, C);
 			}
 			if (p >= 0) {
 				p += 2* (dX - dY);
@@ -83,9 +84,9 @@ void plotSlopNegativeLine (Point P1, Point P2, Color C, int W) {
 		// printf("Based on -X\n");
 		for (x=P1.x; x<=P2.x; x++) {
 			// printf("%d %d\n", x, j);
-			if (W<4) printSquare(W, x, j, C);
+			if (W<4) setXY(W, x, j, C);
 			else {
-				if (x%(W/2)==0) printSquare(W, x, j, C);
+				if (x%(W/2)==0) setXY(W, x, j, C);
 			}
 			if (p >= 0) {
 				p += 2* (dY - dX);
@@ -105,9 +106,9 @@ void plotSlopNegativeLine (Point P1, Point P2, Color C, int W) {
 		// printf("Based on -Y\n");
 		for (y=P2.y; y<=P1.y; y++) {
 			// printf("%d %d\n", i, y);
-			if (W<4) printSquare(W, i, y, C);
+			if (W<4) setXY(W, i, y, C);
 			else {
-				if (y%(W/2)==0) printSquare(W, i, y, C);
+				if (y%(W/2)==0) setXY(W, i, y, C);
 			}
 			if (p >= 0) {
 				p += 2* (dX - dY);
@@ -131,7 +132,7 @@ void plotVerticalLine (Point P1, Point P2, Color C, int W) {
 
 	for(j = P1.y ; j <= P2.y; j++){
 		// printf("%d %d\n", P1.x , j);
-		printSquare(W, P1.x, j, C);
+		setXY(W, P1.x, j, C);
 	}
 }
 
@@ -205,27 +206,27 @@ void drawExplosion (Point initialPoint, int n, Point *P, int scaleFactor) {
 }
 
 void plot8pixel (Point P, int p, int q, int W, Color C) {
-    printSquare(W, P.x+p, P.y+q, C);
-    printSquare(W, P.x-p, P.y+q, C);
-    printSquare(W, P.x+p, P.y-q, C);
-    printSquare(W, P.x-p, P.y-q, C);
+    setXY(W, P.x+p, P.y+q, C);
+    setXY(W, P.x-p, P.y+q, C);
+    setXY(W, P.x+p, P.y-q, C);
+    setXY(W, P.x-p, P.y-q, C);
 
-    printSquare(W, P.x+q, P.y+p, C);
-    printSquare(W, P.x-q, P.y+p, C);
-    printSquare(W, P.x+q, P.y-p, C);
-    printSquare(W, P.x-q, P.y-p, C);
+    setXY(W, P.x+q, P.y+p, C);
+    setXY(W, P.x-q, P.y+p, C);
+    setXY(W, P.x+q, P.y-p, C);
+    setXY(W, P.x-q, P.y-p, C);
 }
 
 void plot4pixel (Point P, int p, int q, int W, Color C) {
-    //printSquare(W, P.x+p, P.y+q, C);
-    //printSquare(W, P.x-p, P.y+q, C);
-    printSquare(W, P.x+p, P.y-q, C);
-    printSquare(W, P.x-p, P.y-q, C);
+    //setXY(W, P.x+p, P.y+q, C);
+    //setXY(W, P.x-p, P.y+q, C);
+    setXY(W, P.x+p, P.y-q, C);
+    setXY(W, P.x-p, P.y-q, C);
 
-    //printSquare(W, P.x+q, P.y+p, C);
-    //printSquare(W, P.x-q, P.y+p, C);
-    printSquare(W, P.x+q, P.y-p, C);
-    printSquare(W, P.x-q, P.y-p, C);
+    //setXY(W, P.x+q, P.y+p, C);
+    //setXY(W, P.x-q, P.y+p, C);
+    setXY(W, P.x+q, P.y-p, C);
+    setXY(W, P.x-q, P.y-p, C);
 }
 
 /*

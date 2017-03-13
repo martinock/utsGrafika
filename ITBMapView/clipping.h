@@ -57,5 +57,4 @@ void clipLine(LineAnalysisResult lar1, ClippingWindow cw1 , Point * output);
 
 
 
-
 #endif

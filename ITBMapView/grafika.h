@@ -1,6 +1,7 @@
 #ifndef GRAFIKA_H
 #define GRAFIKA_H
 
+
 #include <fcntl.h>
 #include <linux/fb.h>
 #include <math.h>
@@ -13,6 +14,7 @@
 #include <sys/time.h>
 #include <termios.h>
 #include <unistd.h>
+#include "color.h"
 
 #define ENTER_KEYPRESS 10
 #define LEFT_KEYPRESS 68
@@ -36,11 +38,6 @@ typedef struct {
   Point vel;
 } PhysicsPoint;
 
-typedef struct {
-    int R;
-    int G;
-    int B;
-} Color;
 
 typedef struct qi_t* qi_p;
 
@@ -54,32 +51,16 @@ typedef struct {
     queueItem* last;
 } queue;
 
-int fbfd;
-struct fb_var_screeninfo vinfo;
-struct fb_fix_screeninfo finfo;
-long int screensize;
-char *fbp;
-int displayWidth, displayHeight;
 
 Point explosionPoint[11];
 int planeloc;
 int endSign;
 
 
-//point
-Point makePoint(int x, int y);
-
-
-//basic framebuffer primitive
-void initScreen();
-Color setColor(int r, int g, int b);
-Color getColorRGB(int r, int g, int b);
-Color getColor(int loc_x, int loc_y);
-void printBackground(Color C);
-void terminate();
 
 
 //basic geometry
+Point makePoint(int x, int y);
 void drawBresenhamLine (Point P1, Point P2, Color C, int W);
 void drawPolyline (int n, Point *P, Color C, int W);
 void drawPolygon (int n, Point *P, Color C, int W);
@@ -88,7 +69,7 @@ void drawCircle (int radius, Point P, int W, Color C);
 void drawCircleHalf (int radius, Point P, int W, Color C);
 
 
-//transition
+//basic transformation
 Point rotatePoint(Point p ,Point pivot, float angle);
 Point* rotateMany(Point p, Point* p1, double angle, int length);
 void ScaleLine(Point * p , double scalingFactorX , double scalingFactorY );
@@ -108,26 +89,20 @@ void drawParachute(Point anc);
 void drawTank(Point anc);
 
 
-
-
-void drawRect(int x, int y, int w, int h, Color c);
-int colorComp(Color C1, Color C2);
-void floodFill(int fp_x, int fp_y, Color C, Color fc);
-
-
-int getch(void);
-
-
-
 //queue
 void initQueue(queue* q);
 char queueEmpty(queue* q);
 void insertPoint(queue* q, Point d);
 Point nextPoint(queue* q);
 
+
+void drawRect(int x, int y, int w, int h, Color c);
+void floodFill(int fp_x, int fp_y, Color C, Color fc);
+
+
 PhysicsPoint makePhysicsPoint(int x, int y, int xvel, int yvel);
 void updatePhysicsPoint(PhysicsPoint* pp);
 
-
+int getch(void);
 
 #endif
