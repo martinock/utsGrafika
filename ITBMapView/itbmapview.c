@@ -89,7 +89,6 @@ void refreshScreen()
 {
 
 	printBackground(setColor(0,0,0));
-
 	// Point clippingWindow[4];
 	Point *clippingWindow;
 	Point *tes;
@@ -116,13 +115,14 @@ void refreshScreen()
 	viewingWindow[2] = makePoint(1000,550);
 	viewingWindow[3] = makePoint(1000,50);
 	
-	
 	drawPolygon(4,viewingWindow,setColor(0,255,180),1);
 
 	if (drawBuildings) refreshFromFile("building.txt", 1, setColor(255,255,255));
 	if (drawRoads) refreshFromFile("jalan.txt", 0,setColor(255,255,0));
 	if (drawTrees) refreshFromFile("pohon.txt", 1,setColor(0,255,0));
 
+	raster_fill(50, 550, 500, 1000);
+	raster_fill(scaleFactor*(100+up), scaleFactor*(200+up), scaleFactor*(100+left), scaleFactor*(200+left));
 }
 
 
@@ -252,7 +252,7 @@ void showSplashScreen() {
 int main() {
 	initScreen();
 	printBackground(setColor(0,0,0));
-	//showSplashScreen();
+	showSplashScreen();
 	printBackground(setColor(0,0,0));
 	refreshScreen();
 	pthread_create(&keypressListener, NULL, keypressListen, NULL);
