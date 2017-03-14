@@ -20,7 +20,7 @@ Point rotatePoint(Point p ,Point pivot, float angle){
 
 //return rotated muliple point
 Point* rotateMany(Point p, Point* p1, double angle, int length) {
-  Point *temp = malloc(length);
+  Point *temp = (Point*) malloc(length*sizeof(Point));
   for (int i = 0; i < length; i++) {
     temp[i] = rotatePoint(p, p1[i], angle);
   }

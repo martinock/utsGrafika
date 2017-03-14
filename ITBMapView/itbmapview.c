@@ -6,7 +6,7 @@
 double left = 0;
 double up = 0;
 double scaleFactor = 1;
-int rotated = 0;
+int rotationDegree = 0;
 unsigned char drawBuildings = 1;
 unsigned char drawRoads = 1;
 unsigned char drawTrees = 1;
@@ -85,17 +85,14 @@ void refreshScreen()
 	Point *clippingWindow;
 	Point *tes;
 	Point center;
-	center = makePoint(scaleFactor*(100+left) + scaleFactor*100, scaleFactor*(100+up) + scaleFactor*100);
 	clippingWindow = (Point *) malloc(4 * sizeof(Point));
-	tes = (Point *) malloc(4 * sizeof(Point));
 	clippingWindow[0] = makePoint(scaleFactor*(100+left),scaleFactor*(100+up));
 	clippingWindow[1] = makePoint(scaleFactor*(100+left),scaleFactor*(200+up));
 	clippingWindow[2] = makePoint(scaleFactor*(200+left),scaleFactor*(200+up));
 	clippingWindow[3] = makePoint(scaleFactor*(200+left),scaleFactor*(100+up));
-	if (rotated == 1) {
-
-		tes = rotateMany(center, clippingWindow, 90, 4);
-		rotated = 0;
+	center = makePoint(scaleFactor*(150+left),scaleFactor*(150+up));
+	if (rotationDegree > 0) {
+		tes = rotateMany(center, clippingWindow, rotationDegree, 4);
 		int i;
 		for(i = 0; i < 4; i++) {
 			clippingWindow[i] = tes[i];
@@ -103,8 +100,6 @@ void refreshScreen()
 
 	}
 	drawPolygon(4,clippingWindow,setColor(0,180,180),4);
-
-	
 	
 	Point viewingWindow[4];
 	
@@ -139,7 +134,9 @@ void *keypressListen(void *x_void_ptr) {
 	    else if ( cmd == TOGGLE_BUILDING_KEYPRESS) {drawBuildings = !drawBuildings; refreshScreen();}
 	    else if ( cmd == TOGGLE_ROADS_KEYPRESS) {drawRoads = !drawRoads; refreshScreen();}
 	    else if ( cmd == TOGGLE_TREES_KEYPRESS) {drawTrees = !drawTrees; refreshScreen();}
-	    else if ( cmd == ROTATE_KEYPRESS) {rotated = 1; refreshScreen();}
+	    else if ( cmd == ROTATE_KEYPRESS) {
+	    	rotationDegree = (rotationDegree + 10) % 360;
+	    	refreshScreen();}
 	}
 	return NULL;
 }
@@ -151,12 +148,12 @@ void programBarrier(){
 
 void showSplashScreen() {
 	//Initiate Splash Screen Component
-	Point * hurufI = malloc(5 * sizeof(Point));
-	Point * hurufT = malloc(9 * sizeof(Point));
-	Point * hurufB = malloc(7 * sizeof(Point));
-	Point * detailHurufB1 = malloc(5 * sizeof(Point));
-	Point * detailHurufB2 = malloc(5 * sizeof(Point));
-	Point * bintang = malloc (5 * sizeof(Point));
+	Point * hurufI = (Point*) malloc(5 * sizeof(Point));
+	Point * hurufT = (Point*) malloc(9 * sizeof(Point));
+	Point * hurufB = (Point*) malloc(7 * sizeof(Point));
+	Point * detailHurufB1 = (Point*) malloc(5 * sizeof(Point));
+	Point * detailHurufB2 = (Point*) malloc(5 * sizeof(Point));
+	Point * bintang = (Point*) malloc (5 * sizeof(Point));
 
 	int baseX = 400;
 	int baseY = 300;
