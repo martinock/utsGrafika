@@ -7,6 +7,7 @@ double left = 0;
 double up = 0;
 double scaleFactor = 1;
 int rotationDegree = 0;
+int rotationDegreeText = 0;
 unsigned char drawBuildings = 1;
 unsigned char drawRoads = 1;
 unsigned char drawTrees = 1;
@@ -157,6 +158,12 @@ void showSplashScreen() {
 
 	int baseX = 400;
 	int baseY = 300;
+	//center = base+min+((max-min)/2)
+	Point centerI;
+	Point centerT;
+	Point centerB;
+	Point centerB1;
+	Point centerB2;
 	int isBounce = 0;
 	int iteration = 0;
 	while (1) {
@@ -165,6 +172,9 @@ void showSplashScreen() {
 		hurufI[2].x = baseX + 50; hurufI[2].y = baseY + 100;
 		hurufI[3].x = baseX + 25; hurufI[3].y = baseY + 100;
 		hurufI[4].x = baseX + 25; hurufI[4].y = baseY;
+		rotationDegreeText = (rotationDegreeText+10)%360;
+		centerI.x = baseX+37; centerI.y = baseY+50;
+		hurufI = rotateMany(centerI,hurufI,rotationDegreeText,5);
 
 		hurufT[0].x = baseX + 70; hurufT[0].y = baseY;
 		hurufT[1].x = baseX + 145; hurufT[1].y = baseY;
@@ -175,6 +185,8 @@ void showSplashScreen() {
 		hurufT[6].x = baseX + 100; hurufT[6].y = baseY + 20;
 		hurufT[7].x = baseX + 70; hurufT[7].y = baseY + 20;
 		hurufT[8].x = baseX + 70; hurufT[8].y = baseY;
+		centerT.x = baseX+107; centerT.y = baseY+60;
+		hurufT = rotateMany(centerT,hurufT,rotationDegreeText,9);
 
 		hurufB[0].x = baseX + 165; hurufB[0].y = baseY;
 		hurufB[1].x = baseX + 215; hurufB[1].y = baseY;
@@ -183,18 +195,24 @@ void showSplashScreen() {
 		hurufB[4].x = baseX + 265; hurufB[4].y = baseY + 100;
 		hurufB[5].x = baseX + 165; hurufB[5].y = baseY + 100;
 		hurufB[6].x = baseX + 165; hurufB[6].y = baseY;
+		centerB.x = baseX+215; centerB.y=baseY+75;
+		hurufB = rotateMany(centerB,hurufB,rotationDegreeText,7);
 
 		detailHurufB1[0].x = baseX + 180; detailHurufB1[0].y = baseY + 20;
 		detailHurufB1[1].x = baseX + 180; detailHurufB1[1].y = baseY + 40;
 		detailHurufB1[2].x = baseX + 200; detailHurufB1[2].y = baseY + 40;
 		detailHurufB1[3].x = baseX + 200; detailHurufB1[3].y = baseY + 20;
 		detailHurufB1[4].x = baseX + 180; detailHurufB1[4].y = baseY + 20;
+		// centerB1.x = baseX+190; centerB1.y = baseY+30;
+		detailHurufB1 = rotateMany(centerB,detailHurufB1,rotationDegreeText,5);
 
 		detailHurufB2[0].x = baseX + 180; detailHurufB2[0].y = baseY + 65;
 		detailHurufB2[1].x = baseX + 180; detailHurufB2[1].y = baseY + 85;
 		detailHurufB2[2].x = baseX + 250; detailHurufB2[2].y = baseY + 85;
 		detailHurufB2[3].x = baseX + 250; detailHurufB2[3].y = baseY + 65;
 		detailHurufB2[4].x = baseX + 180; detailHurufB2[4].y = baseY + 65;
+		// centerB2.x = baseX+215; centerB2.y = baseY+75;
+		detailHurufB2 = rotateMany(centerB,detailHurufB2,rotationDegreeText,5);
 
 		if (hurufB[3].x >= displayWidth) {
 			isBounce = 1;
