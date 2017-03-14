@@ -26,7 +26,7 @@
 #define TOGGLE_BUILDING_KEYPRESS 122
 #define TOGGLE_ROADS_KEYPRESS 120
 #define TOGGLE_TREES_KEYPRESS 99
-
+#define ROTATE_KEYPRESS 114
 
 typedef struct {
     int x;
