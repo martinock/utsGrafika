@@ -228,8 +228,11 @@ void showSplashScreen() {
 			baseX -= 100;
 		}
 		drawPolyline(5, hurufI, setColor(255,255,255), 1);
+		floodFill(centerI.x, centerI.y, setColor(255,0,0), setColor(0,0,0));
 		drawPolyline(9, hurufT, setColor(255,255,255), 1);
+		floodFill(centerT.x, centerT.y, setColor(0,255,0), setColor(0,0,0));
 		drawPolyline(7, hurufB, setColor(255,255,255), 1);
+		floodFill(centerB.x, centerB.y, setColor(0,0,255), setColor(0,0,0));
 		drawPolyline(5, detailHurufB1, setColor(255,255,255), 1);
 		drawPolyline(5, detailHurufB2, setColor(255,255,255), 1);
 		printBackground(setColor(0,0,0));
