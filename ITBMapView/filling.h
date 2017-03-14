@@ -7,5 +7,6 @@
 #include "pointqueue.h"
 
 void floodFill(int fp_x, int fp_y, Color C, Color fc);
+void raster_fill(int y_min, int y_max, int x_min, int x_max);
 
 #endif
