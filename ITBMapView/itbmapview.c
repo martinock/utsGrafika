@@ -1,7 +1,14 @@
-#include "color.h"
-#include "framebuffer.h"
 #include "grafika.h"
+#include "color.h"
+#include "point.h"
+#include "framebuffer.h"
+#include "geometry.h"
+#include "transform.h"
+#include "filling.h"
 #include "clipping.h"
+#include "keypress.h"
+
+
 
 double left = 0;
 double up = 0;
@@ -36,7 +43,6 @@ void refreshFromFile (const char* filename, unsigned char isPoly, Color color) {
 	double yTranslation = (( (scaleFactor*(200+up)) * 50) - ( (scaleFactor*(100+up)) * 550)) / ( (scaleFactor*(200+up)) - (scaleFactor*(100+up)) );	
 
 	while(!feof(fp)){
-
 		
 		int nPoints;
 		fscanf(fp, "%d", &nPoints);
@@ -67,7 +73,9 @@ void refreshFromFile (const char* filename, unsigned char isPoly, Color color) {
 				drawPolyline(2,clippedLine,setColor(255,0,0),1);
 				ScaleLine(clippedLine,xScalingFactor,yScalingFactor);
 				TranslationLine(clippedLine,xTranslation,yTranslation);
+
 				drawPolyline(2,clippedLine,color,1);
+
 			}
 		}
 		free(points);
@@ -98,7 +106,6 @@ void refreshScreen()
 		for(i = 0; i < 4; i++) {
 			clippingWindow[i] = tes[i];
 		}
-
 	}
 	drawPolygon(4,clippingWindow,setColor(0,180,180),4);
 	
@@ -245,7 +252,7 @@ void showSplashScreen() {
 int main() {
 	initScreen();
 	printBackground(setColor(0,0,0));
-	showSplashScreen();
+	//showSplashScreen();
 	printBackground(setColor(0,0,0));
 	refreshScreen();
 	pthread_create(&keypressListener, NULL, keypressListen, NULL);

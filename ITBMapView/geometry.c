@@ -1,5 +1,5 @@
-#include "grafika.h"
-#include "framebuffer.h"
+#include "geometry.h"
+
 
 /*Gambar explosion masih jelek*/
 Point explosionPoint[11] = {
@@ -9,7 +9,6 @@ Point explosionPoint[11] = {
 
 void swap (int *a, int *b) {
 	int temp;
-
 	temp = *a;
 	*a = *b;
 	*b = temp;
@@ -282,4 +281,13 @@ void drawCircleHalf (int radius, Point P, int W, Color C) {
 
         plot4pixel(P, p, q, W, C);
     }
+}
+
+
+void drawRect(int x, int y, int w, int h, Color c) {
+  for (int i = 0; i < w; i++) {
+    for (int j = 0; j < h; j++) {
+      setXY(1, x+i, y+j, c);
+    }
+  }
 }

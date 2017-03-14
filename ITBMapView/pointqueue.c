@@ -1,5 +1,7 @@
-#include "grafika.h"
+#include "pointqueue.h"
 
+
+//queue
 void initQueue(queue* q) {
     q->first = 0;
     q->last = 0;

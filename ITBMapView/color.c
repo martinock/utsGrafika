@@ -1,5 +1,6 @@
 #include "color.h"
 
+
 Color setColor(int r, int g, int b){
     Color X;
     X.R = r;

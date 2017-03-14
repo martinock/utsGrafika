@@ -1,5 +1,3 @@
-#include "grafika.h"
-#include "math.h"
 #include "clipping.h"
 
 ClippingWindow setClippingWindow(int left, int right, int top, int bottom){

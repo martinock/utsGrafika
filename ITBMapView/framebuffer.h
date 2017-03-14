@@ -2,6 +2,7 @@
 #define FRAMEBUFFER_H
 
 #include "color.h"
+#include "point.h"
 #include "grafika.h"
 
 

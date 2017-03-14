@@ -1,6 +1,9 @@
 #ifndef CLIPPING_H
 #define CLIPPING_H
 
+#include "point.h"
+#include "color.h"
+#include "math.h"
 
 #define IS_COMPLETELY_INSIDE 1
 #define IS_COMPLETELY_OUTSIDE 2
@@ -44,15 +47,15 @@ typedef struct
 
 
 ClippingWindow setClippingWindow(int left, int right, int top, int bottom);
+RegionCode initRegionCode();
+RegionCode computeRegionCode(Point p, ClippingWindow cw);
+LineAnalysisResult analyzeLine(Point startPoint, Point endPoint, ClippingWindow cw);
 LineAnalysisResult initLineAnalysisResult();
 void printRegionCode(RegionCode rc);
-RegionCode initRegionCode();
 int checkRegionCodeBit(int a, int b);
-RegionCode computeRegionCode(Point p, ClippingWindow cw);
 int isPointCompletelyInside(RegionCode x);
 int isCompletelyInside(LineAnalysisResult x);
 int isCompletelyOutside(LineAnalysisResult x);
-LineAnalysisResult analyzeLine(Point startPoint, Point endPoint, ClippingWindow cw);
 void clipLine(LineAnalysisResult lar1, ClippingWindow cw1 , Point * output);
 
 

@@ -1,8 +1,6 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-
-
 typedef struct {
     int R;
     int G;

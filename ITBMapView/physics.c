@@ -1,4 +1,4 @@
-#include "grafika.h"
+#include "physics.h"
 
 #define GRAVITY 8
 #define DRAG 4

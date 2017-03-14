@@ -1,4 +1,4 @@
-#include "grafika.h"
+#include "game.h"
 
 typedef struct {
 	Point body[4];
@@ -67,7 +67,7 @@ void drawBaling(int x, int y, int rotation){
 	 	d_fp.y = 30+y;
 
 	 	drawPolygon(4,d,setColor(255,255,255),1);
-	 	//floodFill(d_fp.x, d_fp.y, setColor(255,255,255) , getColor(d_fp.x, d_fp.y));
+	 	//floodFill(d_fp.x, d_fp.y, setColor(255,255,255) , getXY(d_fp.x, d_fp.y));
 
 
 	 	Point d1[4];
@@ -77,7 +77,7 @@ void drawBaling(int x, int y, int rotation){
 	 	d1[3] = rotatePoint(d[3],d[0],180);
 	 	Point d1_fp=rotatePoint(d_fp,d[0],180);
 	 	drawPolygon(4,d1,setColor(255,255,255),1);
-	 	//floodFill(d1_fp.x, d1_fp.y, setColor(255,255,255) , getColor(d1_fp.x, d1_fp.y));
+	 	//floodFill(d1_fp.x, d1_fp.y, setColor(255,255,255) , getXY(d1_fp.x, d1_fp.y));
 
 
 	 	Point d2[4];
@@ -88,7 +88,7 @@ void drawBaling(int x, int y, int rotation){
 	 	Point d2_fp;
 	 	d2_fp = rotatePoint(d_fp,d[0],90);
 	 	drawPolygon(4,d2,setColor(255,255,255),1);
-	 	//floodFill(d2_fp.x, d2_fp.y, setColor(255,255,255) , getColor(d2_fp.x, d2_fp.y));
+	 	//floodFill(d2_fp.x, d2_fp.y, setColor(255,255,255) , getXY(d2_fp.x, d2_fp.y));
 
 	 	Point d3[4];
 	 	d3[0] = rotatePoint(d[0],d[0],-90);
@@ -97,7 +97,7 @@ void drawBaling(int x, int y, int rotation){
 	 	d3[3] = rotatePoint(d[3],d[0],-90);
 	 	Point d3_fp = rotatePoint(d_fp,d[0],-90);
 	 	drawPolygon(4,d3,setColor(255,255,255),1);
-	 	//floodFill(d3_fp.x, d3_fp.y, setColor(255,255,255) , getColor(d3_fp.x, d3_fp.y));
+	 	//floodFill(d3_fp.x, d3_fp.y, setColor(255,255,255) , getXY(d3_fp.x, d3_fp.y));
 
  	}
 
@@ -147,7 +147,7 @@ void drawPlane(Point p, int direction, Color planeColor) {
 	d[5].x = p.x + (mul * (offset.x + 1250));
 	d[5].y = p.y + ((offset.y + 50));
 	drawPolygon(6,d,planeColor,2);
-	floodFill(p.x + (mul * (offset.x + 1250)), p.y + ((offset.y + 55)), planeColor, getColor(p.x + (mul * (offset.x + 1250)), p.y + ((offset.y + 55))));
+	floodFill(p.x + (mul * (offset.x + 1250)), p.y + ((offset.y + 55)), planeColor, getXY(p.x + (mul * (offset.x + 1250)), p.y + ((offset.y + 55))));
 
 
 	//plane wing
@@ -161,7 +161,7 @@ void drawPlane(Point p, int direction, Color planeColor) {
 	e[3].x = p.x + (mul * (offset.x + 1180));
 	e[3].y = p.y + ((offset.y + 80));
 	drawPolygon(4,e,planeColor,2);
-	floodFill(p.x + (mul * (offset.x + 1220)), p.y + ((offset.y + 110))	 , planeColor, getColor(p.x + (mul * (offset.x + 1220)),p.y + ((offset.y + 110))));
+	floodFill(p.x + (mul * (offset.x + 1220)), p.y + ((offset.y + 110))	 , planeColor, getXY(p.x + (mul * (offset.x + 1220)),p.y + ((offset.y + 110))));
 
 	drawBaling(p.x -40 , p.y + 10 , p.x - 120);
 	Point ptire = makePoint((p.x + (-mul*60)), p.y + 20);
@@ -187,7 +187,7 @@ void drawBrokenPlaneCockpit(Point lastPoint) {
 
 
 	drawPolygon(3, brokenPlane.cockpit, black, 2);
-	floodFill(lastPoint.x - 10, lastPoint.y, black, getColor(lastPoint.x - 10, lastPoint.y));
+	floodFill(lastPoint.x - 10, lastPoint.y, black, getXY(lastPoint.x - 10, lastPoint.y));
 
 	// front body - trapezoid
 }
@@ -211,7 +211,7 @@ void drawBrokenPlaneBody(Point lastPoint) {
 	brokenPlane.frontBody[3].y = lastPoint.y + 18;
 
 	drawPolygon(4, brokenPlane.frontBody, black, 2);
-	floodFill(lastPoint.x + 15, lastPoint.y - 15, black, getColor(lastPoint.x + 15, lastPoint.y - 15));
+	floodFill(lastPoint.x + 15, lastPoint.y - 15, black, getXY(lastPoint.x + 15, lastPoint.y - 15));
 
 	// back body - triangle
 	brokenPlane.backBody[0].x = lastPoint.x + 115;
@@ -224,7 +224,7 @@ void drawBrokenPlaneBody(Point lastPoint) {
 	brokenPlane.backBody[2].y = lastPoint.y + 33;
 
 	drawPolygon(3, brokenPlane.backBody, black, 2);
-	floodFill(lastPoint.x + 135, lastPoint.y + 20, black, getColor(lastPoint.x + 135, lastPoint.y + 20));
+	floodFill(lastPoint.x + 135, lastPoint.y + 20, black, getXY(lastPoint.x + 135, lastPoint.y + 20));
 }
 	// left right wing - trapezoid
 void drawBrokenPlaneWings(Point lastPoint) {
@@ -246,7 +246,7 @@ void drawBrokenPlaneWings(Point lastPoint) {
 	brokenPlane.leftRightWing[3].y = lastPoint.y + 60;
 
 	drawPolygon(4, brokenPlane.leftRightWing, black, 2);
-	floodFill(lastPoint.x + 80, lastPoint.y + 80, black, getColor(lastPoint.x + 80, lastPoint.y + 80));
+	floodFill(lastPoint.x + 80, lastPoint.y + 80, black, getXY(lastPoint.x + 80, lastPoint.y + 80));
 
 	// back wing - triangle
 
@@ -259,7 +259,7 @@ void drawBrokenPlaneWings(Point lastPoint) {
 	brokenPlane.backWing[2].x = lastPoint.x + 200;
 	brokenPlane.backWing[2].y = lastPoint.y - 30;
 	drawPolygon(3, brokenPlane.backWing, black, 2);
-	floodFill(lastPoint.x + 180, lastPoint.y - 30, black, getColor(lastPoint.x + 180, lastPoint.y - 30));
+	floodFill(lastPoint.x + 180, lastPoint.y - 30, black, getXY(lastPoint.x + 180, lastPoint.y - 30));
 
 }
 
@@ -353,7 +353,7 @@ void drawParachute(Point anc) {
 	drawCircleHalf(25,Par.halfcircle3,2,black);
 	drawCircleHalf(25,Par.halfcircle4,2,black);
 	drawCircleHalf(25,Par.halfcircle5,2,black);
-	floodFill(anc.x -25, anc.y + 50, pink, getColor(anc.x - 25, anc.y + 50));
+	floodFill(anc.x -25, anc.y + 50, pink, getXY(anc.x - 25, anc.y + 50));
 	drawBresenhamLine(Par.line1[0],Par.line1[1],black,2);
 	drawBresenhamLine(Par.line2[0],Par.line2[1],black,2);
 	drawBresenhamLine(Par.line3[0],Par.line3[1],black,2);
@@ -361,9 +361,9 @@ void drawParachute(Point anc) {
 	drawBresenhamLine(Par.line5[0],Par.line5[1],black,2);
 	drawBresenhamLine(Par.line6[0],Par.line5[1],black,2);
 	drawCircle(20,Par.head,2,black);
-	floodFill(anc.x -40, anc.y + 275, skin, getColor(anc.x - 40, anc.y + 275));
+	floodFill(anc.x -40, anc.y + 275, skin, getXY(anc.x - 40, anc.y + 275));
 	drawPolygon(4,Par.body,black,2);
-	floodFill(anc.x -40, anc.y + 294, red, getColor(anc.x - 40, anc.y + 294));
+	floodFill(anc.x -40, anc.y + 294, red, getXY(anc.x - 40, anc.y + 294));
 	drawBresenhamLine(Par.hands[0],Par.hands[1],black,2);
 	drawBresenhamLine(Par.hands[2],Par.hands[3],black,2);
 	drawBresenhamLine(Par.legs[0],Par.legs[1],black,2);
@@ -420,20 +420,74 @@ void drawTank(Point anc) {
 	t.warnaTank = black;
 	t.warnaBG = black;
 	drawPolygon(6,t.bottom,black,2);
-	floodFill(anc.x - 90, anc.y - 5, green, getColor(anc.x - 90, anc.y - 5));
+	floodFill(anc.x - 90, anc.y - 5, green, getXY(anc.x - 90, anc.y - 5));
 	drawPolygon(4,t.body,black,2);
-	floodFill(anc.x - 95, anc.y - 61, green, getColor(anc.x - 95, anc.y - 61));
+	floodFill(anc.x - 95, anc.y - 61, green, getXY(anc.x - 95, anc.y - 61));
 	drawCircleHalf(50,t.circle,2,black);
-	floodFill(anc.x + 15, anc.y - 99, green, getColor(anc.x + 15, anc.y - 99));
+	floodFill(anc.x + 15, anc.y - 99, green, getXY(anc.x + 15, anc.y - 99));
 	drawCircle(25,t.tire1,2,black);
-	floodFill(anc.x, anc.y - 32, black, getColor(anc.x, anc.y - 32));
+	floodFill(anc.x, anc.y - 32, black, getXY(anc.x, anc.y - 32));
 	drawCircle(25,t.tire2,2,black);
-	floodFill(anc.x - 57, anc.y - 32, black, getColor(anc.x - 57, anc.y - 32));
+	floodFill(anc.x - 57, anc.y - 32, black, getXY(anc.x - 57, anc.y - 32));
 	drawCircle(25,t.tire3,2,black);
-	floodFill(anc.x + 57, anc.y - 32, black, getColor(anc.x + 57, anc.y - 32));
+	floodFill(anc.x + 57, anc.y - 32, black, getXY(anc.x + 57, anc.y - 32));
 	drawCircle(15,t.tire4,2,black);
-	floodFill(anc.x - 102, anc.y - 42, black, getColor(anc.x - 102, anc.y - 42));
+	floodFill(anc.x - 102, anc.y - 42, black, getXY(anc.x - 102, anc.y - 42));
 	drawCircle(15,t.tire5,2,black);
-	floodFill(anc.x + 102, anc.y - 42, black, getColor(anc.x + 102, anc.y - 42));
+	floodFill(anc.x + 102, anc.y - 42, black, getXY(anc.x + 102, anc.y - 42));
 
+}
+
+
+int cannonX;
+int cannonY;
+int destProjectile;
+
+void buildCannon(int x, int y, Color c) {
+    cannonX = x;
+    cannonY = y;
+	drawTank(makePoint(x, y));
+}
+
+void shootCannon() {
+	int y = cannonY - 12;
+	int x = cannonX;
+	Color black;
+	black.R = 0;
+	black.G = 0;
+	black.B = 0;
+
+	while ((y > 80) && (destProjectile == 0)) {
+		Point head[3];
+	    Point body[4];
+
+	    head[0].x = x;
+	    head[1].x = x - 10;
+	    head[2].x = x + 10;
+	    head[0].y = y;
+	    head[1].y = y + 15;
+	    head[2].y = y + 15;
+
+	    drawPolygon(3, head, black, 2);
+	    floodFill(x, y+4, setColor(125, 0, 125), getXY(x, y+4));
+
+	    body[0].x = x - 15;
+	    body[1].x = x - 15;
+	    body[2].x = x + 15;
+	    body[3].x = x + 15;
+	    body[0].y = y + 16;
+	    body[1].y = y + 40;
+	    body[2].y = y + 40;
+	    body[3].y = y + 16;
+
+	    drawPolygon(4, body, black, 2);
+	    floodFill(x, y+18, setColor(60, 0, 60), getXY(x, y+18));
+
+		usleep(5000);
+		y -= 4;
+		if ((y < 240) && (y > 120) && (x > (planeloc-115)) && (x < (planeloc + 115))) {
+		    destProjectile = 1;
+		    endSign = 1;
+		}
+	}
 }
