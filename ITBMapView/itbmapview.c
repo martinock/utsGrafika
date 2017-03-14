@@ -6,6 +6,7 @@
 double left = 0;
 double up = 0;
 double scaleFactor = 1;
+int rotated = 0;
 unsigned char drawBuildings = 1;
 unsigned char drawRoads = 1;
 unsigned char drawTrees = 1;
@@ -80,18 +81,39 @@ void refreshScreen()
 
 	printBackground(setColor(0,0,0));
 
-	Point clippingWindow[4];
+	// Point clippingWindow[4];
+	Point *clippingWindow;
+	Point *tes;
+	Point center;
+	center = makePoint(scaleFactor*(100+left) + scaleFactor*100, scaleFactor*(100+up) + scaleFactor*100);
+	clippingWindow = (Point *) malloc(4 * sizeof(Point));
+	tes = (Point *) malloc(4 * sizeof(Point));
 	clippingWindow[0] = makePoint(scaleFactor*(100+left),scaleFactor*(100+up));
 	clippingWindow[1] = makePoint(scaleFactor*(100+left),scaleFactor*(200+up));
 	clippingWindow[2] = makePoint(scaleFactor*(200+left),scaleFactor*(200+up));
 	clippingWindow[3] = makePoint(scaleFactor*(200+left),scaleFactor*(100+up));
+	if (rotated == 1) {
+
+		tes = rotateMany(center, clippingWindow, 90, 4);
+		rotated = 0;
+		int i;
+		for(i = 0; i < 4; i++) {
+			clippingWindow[i] = tes[i];
+		}
+
+	}
 	drawPolygon(4,clippingWindow,setColor(0,180,180),4);
 
+	
+	
 	Point viewingWindow[4];
+	
 	viewingWindow[0] = makePoint(500,50);
 	viewingWindow[1] = makePoint(500,550);
 	viewingWindow[2] = makePoint(1000,550);
 	viewingWindow[3] = makePoint(1000,50);
+	
+	
 	drawPolygon(4,viewingWindow,setColor(0,255,180),1);
 
 	if (drawBuildings) refreshFromFile("building.txt", 1, setColor(255,255,255));
@@ -117,6 +139,7 @@ void *keypressListen(void *x_void_ptr) {
 	    else if ( cmd == TOGGLE_BUILDING_KEYPRESS) {drawBuildings = !drawBuildings; refreshScreen();}
 	    else if ( cmd == TOGGLE_ROADS_KEYPRESS) {drawRoads = !drawRoads; refreshScreen();}
 	    else if ( cmd == TOGGLE_TREES_KEYPRESS) {drawTrees = !drawTrees; refreshScreen();}
+	    else if ( cmd == ROTATE_KEYPRESS) {rotated = 1; refreshScreen();}
 	}
 	return NULL;
 }
@@ -133,7 +156,8 @@ void showSplashScreen() {
 	Point * hurufB = malloc(7 * sizeof(Point));
 	Point * detailHurufB1 = malloc(5 * sizeof(Point));
 	Point * detailHurufB2 = malloc(5 * sizeof(Point));
-	
+	Point * bintang = malloc (5 * sizeof(Point));
+
 	int baseX = 400;
 	int baseY = 300;
 	int isBounce = 0;
