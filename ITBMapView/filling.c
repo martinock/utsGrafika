@@ -57,19 +57,25 @@ void raster_fill(int y_min, int y_max, int x_min, int x_max) {
 
     for (int i = y_min; i < y_max; ++i) {
         for (int j = x_min; j < x_max; ++j) {
+            // if (!isColorSame(getXY(j, i), setColor(0,0,0))) {
+            //     continue;
+            // }
+            int status = 0;
             if (isColorSame(getXY(j, i), setColor(255,255,255))) { // iteration one line in minimapand view
-                while (!isColorSame(getXY(j+1, i), setColor(255,255,255))) {
+                status = 0;
+                while (!isColorSame(getXY(j+1, i), setColor(255,255,255)) && status == 0) {
                     // coloring 
+                    if (isColorSame(getXY(j+2, i), setColor(255,255,255)) || isColorSame(getXY(j+2, i), setColor(0,180,180))) {
+                        status = 1;
+                        break;
+                    }
                     setXY(1, j+1, i, setColor(255,255,255));
                 } // finish iteration one part of the line
-                continue;
             } else if (isColorSame(getXY(j, i), setColor(255,0,0))) { // iteration one line in clipping window
-                while (isColorSame(getXY(j+1, i), setColor(0,0,0))) {
+                while (!isColorSame(getXY(j+1, i), setColor(255,0,0)) && !isColorSame(getXY(j-1, i), setColor(255,0,0))) {
                     setXY(1, j+1, i, setColor(255,0,0));
                 }
-                continue;
-            } else {
-                // nothing
+                
             }
         }
     }
