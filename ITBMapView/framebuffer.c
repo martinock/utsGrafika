@@ -1,5 +1,3 @@
-#include "color.h"
-#include "grafika.h"
 #include "framebuffer.h"
 
 int fbfd = 0;
