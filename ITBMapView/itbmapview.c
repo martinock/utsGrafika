@@ -252,7 +252,7 @@ void showSplashScreen() {
 int main() {
 	initScreen();
 	printBackground(setColor(0,0,0));
-	//showSplashScreen();
+	showSplashScreen();
 	printBackground(setColor(0,0,0));
 	refreshScreen();
 	pthread_create(&keypressListener, NULL, keypressListen, NULL);
