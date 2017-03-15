@@ -62,15 +62,30 @@ void raster_fill(int y_min, int y_max, int x_min, int x_max) {
             // }
             int status = 0;
             if (isColorSame(getXY(j, i), setColor(255,255,255))) { // iteration one line in minimapand view
-                status = 0;
-                while (!isColorSame(getXY(j+1, i), setColor(255,255,255)) && status == 0) {
-                    // coloring 
-                    if (isColorSame(getXY(j+2, i), setColor(255,255,255)) || isColorSame(getXY(j+2, i), setColor(0,180,180))) {
-                        status = 1;
-                        break;
+                // status = 0;
+                // while (!isColorSame(getXY(j+1, i), setColor(255,255,255)) && status == 0) {
+                //     // coloring 
+                //     if (isColorSame(getXY(j+2, i), setColor(255,255,255)) || isColorSame(getXY(j+2, i), setColor(0,180,180))) {
+                //         status = 1;
+                //         break;
+                //     }
+                //     setXY(1, j+1, i, setColor(255,255,255));
+                // } // finish iteration one part of the line
+
+                // Start here
+                if (isColorSame(getXY(j+1,i), setColor(255,255,255))) { // building
+                    while (isColorSame(getXY(j+1,i), setColor(255,255,255))) {
+                        j++;
                     }
-                    setXY(1, j+1, i, setColor(255,255,255));
-                } // finish iteration one part of the line
+                    j++;
+                } else if (isColorSame(getXY(j+1,i), setColor(0,0,0))) { // building not filled
+                    while (isColorSame(getXY(j+1,i), setColor(0,0,0))) {
+                        setXY(1, j, i, setColor(255,255,255));
+                        j++;
+                    }
+                    j++;
+                }
+
             } else if (isColorSame(getXY(j, i), setColor(255,0,0))) { // iteration one line in clipping window
                 while (!isColorSame(getXY(j+1, i), setColor(255,0,0)) && !isColorSame(getXY(j-1, i), setColor(255,0,0))) {
                     setXY(1, j+1, i, setColor(255,0,0));
