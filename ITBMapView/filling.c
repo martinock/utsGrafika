@@ -1,11 +1,10 @@
 #include "filling.h"
 
 // global variable
-char available[displayWidth][displayHeight];
 
 void init_avail() {
-    for (int i = 0; i < displayWidth; ++i) {
-        for (int j = 0; j < displayHeight; ++j) {
+    for (int i = 0; i < 1000; ++i) {
+        for (int j = 0; j < 700; ++j) {
             available[i][j] = 0;
             // printf("%d\n", available[i][j]);
         }
@@ -79,7 +78,8 @@ void raster_fill(int y_min, int y_max, int x_min, int x_max) {
                 } else if (isColorSame(getXY(j+1,i), setColor(0,0,0))) { // building not filled
                     while (isColorSame(getXY(j+1,i), setColor(0,0,0))) {
                         setXY(1, j, i, setColor(255,255,255));
-                        available[i][j] = 1;
+                        if (i >= 0 && j >= 0)
+                            available[i][j] = 1;
                         j++;
                     }
                     j++;
