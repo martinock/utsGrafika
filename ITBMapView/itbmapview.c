@@ -8,7 +8,12 @@
 #include "clipping.h"
 #include "keypress.h"
 
-
+typedef struct Polygons {
+	Color c;
+	Point *p;
+	int neff;
+	Point center;
+} Polygon;
 
 double left = 0;
 double up = 0;
@@ -164,25 +169,26 @@ void showSplashScreen() {
 	Point * bintang = (Point*) malloc (5 * sizeof(Point));
 	Point * kotak = (Point *) malloc(sizeof(Point) * 4);
 	Point * persegi = (Point *) malloc(sizeof(Point) * 4);
+	Polygon * polygons = (Polygon *) malloc(sizeof(Polygon) * 5);
 
-
-	kotak[0] = makePoint(250, 500);
-	kotak[1] = makePoint(250, 590);
-	kotak[2] = makePoint(400, 590);
-	kotak[3] = makePoint(400, 500);
-
-	Point centerKotak;
-	centerKotak.x = 325;
-	centerKotak.y = 545;
-	Point centerPersegi;
-	centerPersegi.x = 300;
-	centerPersegi.y = 550;
-
+	
 	persegi[0] = makePoint(275, 525);
 	persegi[1] = makePoint(275, 575);
 	persegi[2] = makePoint(325, 575);
 	persegi[3] = makePoint(325, 525);
-
+	polygons[0].p = persegi;
+	polygons[0].neff = 4;
+	polygons[0].c = setColor(255,0,0);
+	polygons[0].center = makePoint(300,550);
+	kotak[0] = makePoint(250, 500);
+	kotak[1] = makePoint(250, 590);
+	kotak[2] = makePoint(400, 590);
+	kotak[3] = makePoint(400, 500);
+	polygons[1].p = kotak;
+	polygons[1].neff = 4;
+	polygons[1].c = setColor(255,255,0);
+	polygons[1].center = makePoint(325,545);
+	
 	int baseX = 400;
 	int baseY = 300;
 	//center = base+min+((max-min)/2)
@@ -262,8 +268,13 @@ void showSplashScreen() {
 		floodFill(centerB.x, centerB.y, setColor(0,0,255), setColor(0,0,0));
 		drawPolyline(5, detailHurufB1, setColor(255,255,255), 1);
 		drawPolyline(5, detailHurufB2, setColor(255,255,255), 1);
-		drawPolygon(4, persegi, setColor(255, 0, 0), 1);
-		drawPolygon(4, kotak, setColor(255, 255, 0), 1);
+		int polygonIdx = 0;
+		drawPolygon(polygons[polygonIdx].neff, polygons[polygonIdx].p, polygons[polygonIdx].c, 1);
+		floodFill(polygons[polygonIdx].center.x, polygons[polygonIdx].center.y, polygons[polygonIdx].c, setColor(0,0,0));
+		for (polygonIdx = 1; polygonIdx < 2; ++polygonIdx) {
+			drawPolygon(polygons[polygonIdx].neff, polygons[polygonIdx].p, polygons[polygonIdx].c, 1);
+			floodFill(polygons[polygonIdx].center.x, polygons[polygonIdx].center.y, polygons[polygonIdx].c, setColor(0,0,0));
+		}
 		printBackground(setColor(0,0,0));
 		if (iteration == 3) {
 			break;
