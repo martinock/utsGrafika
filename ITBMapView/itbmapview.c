@@ -247,6 +247,24 @@ void showSplashScreen() {
 			break;
 		}
 	}
+	Point * kotak = (Point *) malloc(4 * sizeof(Point));
+	kotak[0] = makePoint(250, 500);
+	kotak[1] = makePoint(250, 590);
+	kotak[2] = makePoint(400, 590);
+	kotak[3] = makePoint(400, 500);
+	drawPolygon(4, kotak, setColor(255,255,0),1);
+	
+	Point * persegi = (Point *) malloc(4 * sizeof(Point));
+	persegi[0] = makePoint(275, 525);
+	persegi[1] = makePoint(275, 575);
+	persegi[2] = makePoint(325, 575);
+	persegi[3] = makePoint(325, 525);
+	
+	drawPolygon(4, persegi, setColor(255,0,0),1);
+
+	floodFill(300, 570, setColor(255,0,0), setColor(0,0,0));
+	sleep(1);
+	floodFill(275, 525, setColor(255,255,0), setColor(0,0,0));
 }
 
 int main() {
