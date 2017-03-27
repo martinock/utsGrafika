@@ -21,13 +21,6 @@ typedef struct node_poly
 	struct node_poly * next;
 } list_of_layer;
 
-typedef struct node_layer
-{
-  struct node_layer * first;
-	list_of_layer lo_layer;
-	struct node_layer * next;
-} list_of_canvas;
-
 #define First(L) L.first
 #define Next(L) L.next
 #define Current(L) L.val
